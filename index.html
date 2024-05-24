@@ -77,11 +77,18 @@
             let containerWidth = container.clientWidth;
             let containerHeight = container.clientHeight;
 
-            let newWidth = containerWidth * 0.8;
-            let newHeight = containerHeight * 0.8;
+            let newWidth, newHeight;
 
-            newWidth = Math.min(Math.max(newWidth, minWidth), maxWidth);
-            newHeight = Math.min(Math.max(newHeight, minHeight), maxHeight);
+            if (containerWidth <= 768) {  // Para dispositivos móviles
+                newWidth = containerWidth * 0.95;  // Ajuste del 95% del ancho del contenedor
+                newHeight = containerHeight * 0.95;  // Ajuste del 95% de la altura del contenedor
+            } else {
+                newWidth = containerWidth * 0.8;
+                newHeight = containerHeight * 0.8;
+
+                newWidth = Math.min(Math.max(newWidth, minWidth), maxWidth);
+                newHeight = Math.min(Math.max(newHeight, minHeight), maxHeight);
+            }
 
             iframe.style.width = newWidth + 'px';
             iframe.style.height = newHeight + 'px';
@@ -93,4 +100,3 @@
 </body>
 
 </html>
-
