@@ -26,28 +26,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background-color: #f0f0f0;
         }
 
         #pdf-iframe {
-            width: 80%;
-            height: 80%;
-            max-width: 1200px;
-            max-height: 900px;
-            min-width: 600px;
-            min-height: 450px;
+            width: 100%;
+            height: 100%;
             border: none;
             overflow: hidden;
-        }
-
-        @media (max-width: 768px) {
-            #pdf-iframe {
-                width: 100%;
-                height: 100%;
-                max-width: none;
-                max-height: none;
-                min-width: none;
-                min-height: none;
-            }
         }
     </style>
 </head>
@@ -65,33 +51,26 @@
             }
         }, { passive: false });
 
-        // Ajustar el tamaño del iframe dentro de los límites
         function adjustIframeSize() {
             const iframe = document.getElementById('pdf-iframe');
             const container = document.getElementById('pdf-container');
-            const maxWidth = 1200;
-            const maxHeight = 900;
-            const minWidth = 600;
-            const minHeight = 450;
+            const aspectRatio = 1.5; // Relación de aspecto aproximada de una hoja A4 (1.5)
 
             let containerWidth = container.clientWidth;
             let containerHeight = container.clientHeight;
 
-            let newWidth, newHeight;
-
-            if (containerWidth <= 768) {  // Para dispositivos móviles
-                newWidth = containerWidth * 0.9;  // Ajuste al 90% del ancho del contenedor
-                newHeight = containerHeight * 0.9;  // Ajuste al 90% de la altura del contenedor
+            if (containerWidth / containerHeight < aspectRatio) {
+                // El contenedor es más alto en relación con su ancho
+                iframe.style.width = containerWidth + 'px';
+                iframe.style.height = (containerWidth / aspectRatio) + 'px';
             } else {
-                newWidth = containerWidth * 0.8;
-                newHeight = containerHeight * 0.8;
-
-                newWidth = Math.min(Math.max(newWidth, minWidth), maxWidth);
-                newHeight = Math.min(Math.max(newHeight, minHeight), maxHeight);
+                // El contenedor es más ancho en relación con su altura
+                iframe.style.width = (containerHeight * aspectRatio) + 'px';
+                iframe.style.height = containerHeight + 'px';
             }
 
-            iframe.style.width = newWidth + 'px';
-            iframe.style.height = newHeight + 'px';
+            iframe.style.maxWidth = '100%';
+            iframe.style.maxHeight = '100%';
         }
 
         window.addEventListener('resize', adjustIframeSize);
