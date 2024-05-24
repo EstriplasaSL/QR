@@ -31,10 +31,10 @@
         #pdf-iframe {
             width: 80%;
             height: 80%;
-            max-width: 1200px; /* Ajustar según sea necesario */
-            max-height: 900px; /* Ajustar según sea necesario */
-            min-width: 600px;  /* Ajustar según sea necesario */
-            min-height: 450px; /* Ajustar según sea necesario */
+            max-width: 1200px;
+            max-height: 900px;
+            min-width: 600px;
+            min-height: 450px;
             border: none;
             overflow: hidden;
         }
@@ -56,6 +56,41 @@
     <div id="pdf-container">
         <iframe id="pdf-iframe" src="https://drive.google.com/file/d/1Y35NQZYl0VqbtOuFrSS8_UyP_PcxOBot/preview" frameborder="0"></iframe>
     </div>
+
+    <script>
+        // Prevenir el zoom con la rueda del ratón
+        document.addEventListener('wheel', function (e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Ajustar el tamaño del iframe dentro de los límites
+        function adjustIframeSize() {
+            const iframe = document.getElementById('pdf-iframe');
+            const container = document.getElementById('pdf-container');
+            const maxWidth = 1200;
+            const maxHeight = 900;
+            const minWidth = 600;
+            const minHeight = 450;
+
+            let containerWidth = container.clientWidth;
+            let containerHeight = container.clientHeight;
+
+            let newWidth = containerWidth * 0.8;
+            let newHeight = containerHeight * 0.8;
+
+            newWidth = Math.min(Math.max(newWidth, minWidth), maxWidth);
+            newHeight = Math.min(Math.max(newHeight, minHeight), maxHeight);
+
+            iframe.style.width = newWidth + 'px';
+            iframe.style.height = newHeight + 'px';
+        }
+
+        window.addEventListener('resize', adjustIframeSize);
+        window.addEventListener('load', adjustIframeSize);
+    </script>
 </body>
 
 </html>
+
