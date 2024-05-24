@@ -54,23 +54,24 @@
         function adjustIframeSize() {
             const iframe = document.getElementById('pdf-iframe');
             const container = document.getElementById('pdf-container');
-            const aspectRatio = 1.5; // Relación de aspecto aproximada de una hoja A4 (1.5)
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            const aspectRatio = 0.707; // Relación de aspecto para A4 (1/√2)
 
-            let containerWidth = container.clientWidth;
-            let containerHeight = container.clientHeight;
+            let newWidth, newHeight;
 
             if (containerWidth / containerHeight < aspectRatio) {
-                // El contenedor es más alto en relación con su ancho
-                iframe.style.width = containerWidth + 'px';
-                iframe.style.height = (containerWidth / aspectRatio) + 'px';
+                // Ajustar el alto para que quepa
+                newHeight = containerHeight;
+                newWidth = newHeight * aspectRatio;
             } else {
-                // El contenedor es más ancho en relación con su altura
-                iframe.style.width = (containerHeight * aspectRatio) + 'px';
-                iframe.style.height = containerHeight + 'px';
+                // Ajustar el ancho para que quepa
+                newWidth = containerWidth;
+                newHeight = newWidth / aspectRatio;
             }
 
-            iframe.style.maxWidth = '100%';
-            iframe.style.maxHeight = '100%';
+            iframe.style.width = newWidth + 'px';
+            iframe.style.height = newHeight + 'px';
         }
 
         window.addEventListener('resize', adjustIframeSize);
@@ -79,3 +80,4 @@
 </body>
 
 </html>
+
