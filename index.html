@@ -26,12 +26,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #f0f0f0;
         }
 
         #pdf-iframe {
-            width: 100%;
-            height: 100%;
             border: none;
             overflow: hidden;
         }
@@ -56,7 +53,7 @@
             const container = document.getElementById('pdf-container');
             const containerWidth = container.clientWidth;
             const containerHeight = container.clientHeight;
-            const aspectRatio = 0.707; // Relación de aspecto para A4 (1/√2)
+            const aspectRatio = 1.414; // Relación de aspecto para A4 (√2 ≈ 1.414)
 
             let newWidth, newHeight;
 
@@ -80,4 +77,3 @@
 </body>
 
 </html>
-
