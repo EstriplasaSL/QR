@@ -54,7 +54,11 @@
             const containerWidth = container.clientWidth;
             const containerHeight = container.clientHeight;
             const aspectRatio = 1.414; // Relación de aspecto para A4 (√2 ≈ 1.414)
-            const margin = 150; // Aumentar aún más el margen para evitar el corte superior
+            let margin = 100; // Margen inicial para evitar el corte superior
+
+            if (window.innerWidth < 768) { // Dispositivo móvil
+                margin = 50; // Margen reducido para dispositivos móviles
+            }
 
             let newWidth, newHeight;
 
