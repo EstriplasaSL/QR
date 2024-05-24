@@ -54,17 +54,18 @@
             const containerWidth = container.clientWidth;
             const containerHeight = container.clientHeight;
             const aspectRatio = 1.414; // Relación de aspecto para A4 (√2 ≈ 1.414)
+            const margin = 20; // Margen adicional para evitar el corte superior
 
             let newWidth, newHeight;
 
             if (containerWidth / containerHeight < aspectRatio) {
                 // Ajustar el alto para que quepa
-                newHeight = containerHeight;
+                newHeight = containerHeight - margin;
                 newWidth = newHeight * aspectRatio;
             } else {
                 // Ajustar el ancho para que quepa
                 newWidth = containerWidth;
-                newHeight = newWidth / aspectRatio;
+                newHeight = newWidth / aspectRatio - margin;
             }
 
             iframe.style.width = newWidth + 'px';
