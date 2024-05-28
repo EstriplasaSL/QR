@@ -26,6 +26,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         #pdf-iframe {
@@ -54,13 +55,13 @@
             const containerWidth = container.clientWidth;
             const containerHeight = container.clientHeight;
             const aspectRatio = 1.414; // Relación de aspecto para A4 (√2 ≈ 1.414)
-            let margin = 100; // Margen inicial para evitar el corte superior
-
-            if (window.innerWidth < 768) { // Dispositivo móvil
-                margin = 50; // Margen reducido para dispositivos móviles
-            }
+            let margin = 200; // Margen inicial para evitar el corte superior e inferior
 
             let newWidth, newHeight;
+
+            if (window.innerWidth < 768) { // Dispositivo móvil
+                margin = 20; // Margen reducido para dispositivos móviles
+            }
 
             if (containerWidth / containerHeight < aspectRatio) {
                 // Ajustar el alto para que quepa
@@ -68,12 +69,13 @@
                 newWidth = newHeight * aspectRatio;
             } else {
                 // Ajustar el ancho para que quepa
-                newWidth = containerWidth;
-                newHeight = newWidth / aspectRatio - margin;
+                newWidth = containerWidth - margin;
+                newHeight = newWidth / aspectRatio;
             }
 
             iframe.style.width = newWidth + 'px';
             iframe.style.height = newHeight + 'px';
+            iframe.style.marginTop = margin / 2 + 'px'; // Ajuste adicional para centrar
         }
 
         window.addEventListener('resize', adjustIframeSize);
